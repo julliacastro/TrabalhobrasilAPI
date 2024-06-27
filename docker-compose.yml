@@ -15,5 +15,5 @@ services:
       # Variável de ambiente para a chave de acesso da AWS
       - AWS_SECRET_ACCESS_KEY=yUSZq2Ypdm4S8okSMj6lPCydqnaIEDl1JctetIEwv 
       # Variável de ambiente para a chave secreta da AWS
-      - AWS_REGION=your_aws_region 
+      - AWS_REGION=us-west-2
       # Variável de ambiente para a região da AWS
