@@ -1,19 +1,11 @@
-version: '3.8' 
-# Versão do Docker Compose
+version: '3.8'
 
 services:
-  web:
-    image: todo-app 
-    # Nome da imagem do contêiner
-    build:
-      context: ./TodoApi 
-      # Contexto de build é o diretório backend
+  todoapi:
+    image: 7303-3536-3692.dkr.ecr.us-east-1.amazonaws.com/todo-api:latest
     ports:
-      - "9080:9080" 
+      - "9080:9080"
     environment:
-      - AWS_ACCESS_KEY_ID=AKIA2UC3BIJWBEFGQD4Q
-      # Variável de ambiente para a chave de acesso da AWS
-      - AWS_SECRET_ACCESS_KEY=yUSZq2Ypdm4S8okSMj6lPCydqnaIEDl1JctetIEwv 
-      # Variável de ambiente para a chave secreta da AWS
-      - AWS_REGION=us-east-1
-      # Variável de ambiente para a região da AWS
+      - ASPNETCORE_ENVIRONMENT=Production
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
