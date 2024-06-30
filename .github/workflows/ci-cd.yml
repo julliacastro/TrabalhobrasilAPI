@@ -46,7 +46,7 @@ jobs:
         run: |
           docker save todoapi:latest -o todoapi.tar
 
-      - name: Copy Docker image to EC2
+      - name: Copy Docker image and docker-compose.yml to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USER: ${{ secrets.EC2_USER }}
@@ -54,6 +54,7 @@ jobs:
           echo "${{ secrets.EC2_KEY }}" > key.pem
           chmod 400 key.pem
           scp -o StrictHostKeyChecking=no -i key.pem todoapi.tar $EC2_USER@$EC2_HOST:~/todoapi.tar
+          scp -o StrictHostKeyChecking=no -i key.pem docker-compose.yml $EC2_USER@$EC2_HOST:~/docker-compose.yml
 
       - name: Load Docker image on EC2 and run
         env:
@@ -62,5 +63,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem $EC2_USER@$EC2_HOST << 'EOF'
             docker load -i ~/todoapi.tar
+            cd ~
+            ls -l
             docker-compose down
             docker-compose up -d
